@@ -2,16 +2,22 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const indexRouter = require('./routes/index');
+const projectsRouter = require('./routes/projects');
 
 const app = express();
 const PORT = process.env.PORT || '3000'
 
 app.use(bodyParser.json())
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  next()
+})
+
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`)
 })
 
-app.get("/", (req, res, next) => {
-  res.send("Ya made it")
-})
+app.use("/", indexRouter)
+app.use("/projects", projectsRouter)
