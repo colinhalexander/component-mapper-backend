@@ -1,6 +1,8 @@
 const knex = require('../config/knex')
 const router = require('express').Router()
 
+const Nester = require('../modules/component-nester')
+
 router.get('/', async (req, res, next) => {
   const allProjects = await knex.select().table('projects')
 
@@ -14,7 +16,13 @@ router.get('/:id', async (req, res, next) => {
   const components = await knex.select().table('components')
                                .where('project_id', `${req.params.id}`)
   
-  project[0].components = components
+  const componentIds = components.map(component => component.id)
+  const relationships = await knex.select().table('component_renders')
+                                  .whereIn('parent_id', componentIds)
+
+  const nestedComponents = Nester.createNestedComponentsArray(relationships, components)
+
+  project[0].components = nestedComponents
   
   res.json(project[0])
 })
