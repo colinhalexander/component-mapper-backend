@@ -1,4 +1,4 @@
-const knex = require('../knex-config')
+const knex = require('../config/knex')
 const router = require('express').Router()
 
 router.get('/', async (req, res, next) => {
@@ -14,9 +14,9 @@ router.get('/:id', async (req, res, next) => {
   const components = await knex.select().table('components')
                                .where('project_id', `${req.params.id}`)
   
-  project.components = components
+  project[0].components = components
   
-  res.json(project)
+  res.json(project[0])
 })
 
 module.exports = router
