@@ -26,13 +26,13 @@ function nestComponents(joinsObject) {
 
 function mapComponentsToJoinsObject(joinsObject, components) {
   return Object.keys(joinsObject)
-  .reduce((memo, key) => {
-    memo[key] = joinsObject[key].map(id => {
-      return components.find(component => component.id === id)
-    })
-    
-    return memo
-  }, {})
+          .reduce((memo, key) => {
+            memo[key] = joinsObject[key].map(id => {
+              return components.find(component => component.id === id)
+            })
+            
+            return memo
+          }, {})
 }
 
 function createNestedComponentsArray(relationships, components) {

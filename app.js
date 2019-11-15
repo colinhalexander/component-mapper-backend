@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 const indexRouter = require('./routes/index');
 const projectsRouter = require('./routes/projects');
+const componentsRouter = require('./routes/components');
 
 const app = express();
 const PORT = process.env.PORT || '3000'
@@ -21,3 +22,4 @@ app.listen(PORT, () => {
 
 app.use("/", indexRouter)
 app.use("/projects", projectsRouter)
+app.use("/components", componentsRouter)
