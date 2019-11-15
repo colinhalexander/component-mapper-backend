@@ -41,4 +41,11 @@ router.post("/", async (req, res, next) => {
   res.json(newProject[0])
 })
 
+router.delete("/:id", async (req, res, next) => {
+  await knex('components').where('project_id', `${req.params.id}`).del()
+  await knex('projects').where('id', `${req.params.id}`).del()
+
+  res.send(`delete request processed without error for project ${req.params.id}`)
+})
+
 module.exports = router
