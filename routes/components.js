@@ -5,10 +5,11 @@ router.post("/", async (req, res, next) => {
   const { component, parent_id } = req.body
   const newComponent = await knex('components').insert(component, ['id'])
 
-  const renderResponse = await knex('component_renders').insert({
+  await knex('component_renders').insert({
     parent_id: parseInt(parent_id),
     child_id: newComponent[0].id
   })
+  
   const createdComponent = {
     ...component,
     ...newComponent[0]

@@ -27,4 +27,18 @@ router.get('/:id', async (req, res, next) => {
   res.json(project[0])
 })
 
+router.post("/", async (req, res, next) => {
+  const newProject = await knex('projects')
+                            .insert(req.body, ['id', 'name', 'description'])
+  
+  await knex('components').insert({
+    name: 'App',
+    type: 'class',
+    notes: '',
+    project_id: newProject[0].id
+  })
+
+  res.json(newProject[0])
+})
+
 module.exports = router
