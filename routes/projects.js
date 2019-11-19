@@ -33,7 +33,7 @@ router.post("/", async (req, res, next) => {
   
   await knex('components').insert({
     name: 'App',
-    type: 'class',
+    type: 'Class',
     notes: '',
     project_id: newProject[0].id
   })
