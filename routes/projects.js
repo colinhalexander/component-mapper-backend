@@ -1,7 +1,7 @@
 const knex = require('../config/knex')
 const router = require('express').Router()
 
-const Nester = require('../modules/component-nester')
+const Nester = require('../utilities/component-nester')
 
 router.get('/', async (req, res, next) => {
   const allProjects = await knex.select().table('projects')
