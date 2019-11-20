@@ -1,7 +1,6 @@
 const lodash = require('lodash')
 
 function createNestedComponentsArray(relationships, components) {
-
   let joinsObject = createJoinsObject(relationships)
   const appComponent = components.find(component => component.name === 'App')
 
@@ -16,7 +15,6 @@ function createNestedComponentsArray(relationships, components) {
 
 // create object where keys are parentIDs pointing to an array of their children's IDs
 function createJoinsObject(joins) {
-  
   return joins.reduce((memo, join) => {
 
     if (!memo[join.parent_id]) {
@@ -30,7 +28,6 @@ function createJoinsObject(joins) {
 }
 
 function mapComponentsToJoinsObject(joinsObject, components) {
-
   return Object.keys(joinsObject)
           .reduce((memo, key) => {
             memo[key] = joinsObject[key].map(id => {
@@ -42,7 +39,6 @@ function mapComponentsToJoinsObject(joinsObject, components) {
 }
 
 function nestComponents(joinsObject) {
-
   lodash.reverse( Object.keys(joinsObject) )
     .forEach(key => {
       joinsObject[key].forEach(component => {

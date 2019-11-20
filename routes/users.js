@@ -2,15 +2,16 @@ const knex = require('../config/knex')
 const User = require('../models/user')
 const router = require('express').Router()
 
-router.get('/:id', async (req, res, next) => {
-  const user = await User.find(req.params.id)
+router.get('/', async (req, res, next) => {
+  const users = await knex.select().from('users')
 
-  res.json(user)
+  res.json(users)
 })
 
-router.post('/', (req, res, next) => {
-
-  User.findOrCreate(req.body)
+router.post('/', async (req, res, next) => {
+  const user = await User.findOrCreate(req.body)
+  
+  res.json(user)
 })
 
 module.exports = router

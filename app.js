@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors')
 const passport = require('./config/passport')
 
+const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
 const projectsRouter = require('./routes/projects');
 const componentsRouter = require('./routes/components');
@@ -17,7 +18,8 @@ app.use(cors())
 
 app.use(passport.initialize())
 
-app.use(`/users`, usersRouter)
+app.use('/auth', authRouter)
+app.use('/users', usersRouter)
 app.use('/projects', projectsRouter)
 app.use('/components', componentsRouter)
 
