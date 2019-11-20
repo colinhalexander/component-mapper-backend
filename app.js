@@ -1,21 +1,20 @@
 require('dotenv').config()
-const express = require('express');
+const express = require('express')
 
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser')
 const cors = require('cors')
 const passport = require('./config/passport')
 
-const authRouter = require('./routes/auth');
-const usersRouter = require('./routes/users');
-const projectsRouter = require('./routes/projects');
-const componentsRouter = require('./routes/components');
+const authRouter = require('./routes/auth')
+const usersRouter = require('./routes/users')
+const projectsRouter = require('./routes/projects')
+const componentsRouter = require('./routes/components')
 
-const app = express();
+const app = express()
 const PORT = process.env.PORT || '3000'
 
 app.use(bodyParser.json())
 app.use(cors())
-
 app.use(passport.initialize())
 
 app.use('/auth', authRouter)

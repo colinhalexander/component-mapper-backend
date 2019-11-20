@@ -6,7 +6,7 @@ const User = require('../models/user')
 passport.use(new GitHubStrategy({
     clientID: process.env['GITHUB_CLIENT_ID'],
     clientSecret: process.env['GITHUB_CLIENT_SECRET'],
-    callbackURL: 'http://localhost:3000/auth/callback'
+    callbackURL: 'https://component-mapper.herokuapp.com/auth/callback'
   }, 
   async (accessToken, refreshToken, profile, done) => {
     const formattedProfile = formatProfile(profile._json)
