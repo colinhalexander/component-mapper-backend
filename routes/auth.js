@@ -10,8 +10,7 @@ router.get('/callback',
     failureRedirect: 'http://localhost:3001/?login=failed',
     session: false
   }), (req, res) => {
-    console.log(req)
-    res.redirect(`http://localhost:3001/?login=successful`)
+    res.redirect(`http://localhost:3001/users/${req.user.username}`)
   }
 )
 

@@ -8,6 +8,14 @@ router.get('/', async (req, res, next) => {
   res.json(users)
 })
 
+router.get('/:username', async (req, res, next) => {
+  const user = await User.findByUsername(req.params.username),
+        projects = await User.getProjects(user.id)
+
+  user.projects = projects
+  res.json(user)
+})
+
 router.post('/', async (req, res, next) => {
   const user = await User.findOrCreate(req.body)
   

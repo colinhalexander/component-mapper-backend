@@ -27,7 +27,7 @@ router.get('/:id', async (req, res, next) => {
   res.json(project[0])
 })
 
-router.post("/", async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   const newProject = await knex('projects')
                             .insert(req.body, ['id', 'name', 'description'])
   
@@ -41,7 +41,15 @@ router.post("/", async (req, res, next) => {
   res.json(newProject[0])
 })
 
-router.delete("/:id", async (req, res, next) => {
+// router.patch('/:id', async (req, res, next) => {
+//   const project = await knex('projects')
+//                           .update({ user_id: 2 }, ['id', 'user_id'])
+//                           .where('id', req.params.id)
+  
+//   res.json(project)
+// })
+
+router.delete('/:id', async (req, res, next) => {
   await knex('components').where('project_id', `${req.params.id}`).del()
   await knex('projects').where('id', `${req.params.id}`).del()
 

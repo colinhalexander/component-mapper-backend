@@ -1,9 +1,8 @@
 const knex = require('../config/knex')
 
 class User {
-
-  static async find(id) {
-    const user = await knex('users').where('id', id)
+  static async findByUsername(username) {
+    const user = await knex('users').where('username', username)
     return user[0]
   }
 
@@ -13,22 +12,27 @@ class User {
   }
 
   static async create(userObject) {
-    const returnVars = ['id', 'username', 'display_name', 'bio', 'email', 'avatar_url']
-
-    const user = await knex('users').insert(userObject, returnVars)
+    const returnVars = ['id', 'username', 'display_name', 'bio', 'email', 'avatar_url'],
+          user = await knex('users').insert(userObject, returnVars)
+    
     return user[0]
   }
 
   static async findOrCreate(userObject) {
-    const { id, github_id } = userObject
+    const { github_id } = userObject
 
-    let user = id ? await this.find(id) : await this.findByGitHubID(github_id) 
+    let user = await this.findByGitHubID(github_id) 
 
     if (!user) {
       user = await this.create(userObject)
     }
 
     return user
+  }
+
+  static async getProjects(userID) {
+    const projects = await knex('projects').where('user_id', userID)
+    return projects
   }
 }
 
