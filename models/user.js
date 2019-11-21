@@ -19,9 +19,7 @@ class User {
   }
 
   static async findOrCreate(userObject) {
-    const { github_id } = userObject
-
-    let user = await this.findByGitHubID(github_id) 
+    let user = await this.findByGitHubID(userObject.github_id) 
 
     if (!user) {
       user = await this.create(userObject)

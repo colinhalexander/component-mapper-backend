@@ -1,13 +1,6 @@
 const knex = require('../config/knex')
 const router = require('express').Router()
-
 const Nester = require('../utilities/component-nester')
-
-router.get('/', async (req, res, next) => {
-  const allProjects = await knex.select().table('projects')
-
-  res.json(allProjects)
-})
 
 router.get('/:id', async (req, res, next) => {
   const project = await knex.select().table('projects')
@@ -39,21 +32,6 @@ router.post('/', async (req, res, next) => {
   })
 
   res.json(newProject[0])
-})
-
-// router.patch('/:id', async (req, res, next) => {
-//   const project = await knex('projects')
-//                           .update({ user_id: 2 }, ['id', 'user_id'])
-//                           .where('id', req.params.id)
-  
-//   res.json(project)
-// })
-
-router.delete('/:id', async (req, res, next) => {
-  await knex('components').where('project_id', `${req.params.id}`).del()
-  await knex('projects').where('id', `${req.params.id}`).del()
-
-  res.status(204).json("No Content")
 })
 
 module.exports = router

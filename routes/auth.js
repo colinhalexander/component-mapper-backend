@@ -7,10 +7,11 @@ router.get('/',
 
 router.get('/callback',
   passport.authenticate('github', {
-    failureRedirect: 'http://localhost:3001/?login=failed',
+    failureRedirect: 'https://component-mapper.firebaseapp.com/?login=failed',
     session: false
-  }), (req, res) => {
-    res.redirect(`http://localhost:3001/users/${req.user.username}`)
+  }), 
+  (req, res) => {
+    res.redirect(`https://component-mapper.firebaseapp.com/users/${req.user.username}`)
   }
 )
 
